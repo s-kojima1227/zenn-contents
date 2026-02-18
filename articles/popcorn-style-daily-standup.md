@@ -3,7 +3,7 @@ title: "「ポップコーンスタイル」をデイリーに導入した話"
 emoji: "🍿"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["デイリースタンドアップ", "スクラム", "チーム運営", "ファシリテーション"]
-published: false
+published: true
 ---
 
 ## 😓 毎日ファシリするのが微妙にツラい
