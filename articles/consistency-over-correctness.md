@@ -1,7 +1,7 @@
 ---
 title: "迷ったら既存実装に合わせよう"
-emoji: "🧩"
-type: "idea"
+emoji: "🛤️"
+type: "tech"
 topics: ["設計", "チーム開発", "コードレビュー", "リファクタリング"]
 published: true
 ---
