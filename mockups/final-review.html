@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レビュー投稿（本実装後）</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .browser-bar {
+      background: #dee1e6;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .browser-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ff5f57;
+    }
+
+    .browser-dots span:nth-child(2) {
+      background: #ffbd2e;
+    }
+
+    .browser-dots span:nth-child(3) {
+      background: #28c840;
+    }
+
+    .browser-address {
+      flex: 1;
+      background: white;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .page {
+      flex: 1;
+      background: white;
+      padding: 32px 40px;
+    }
+
+    .modal-overlay {
+      max-width: 480px;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .modal-close {
+      font-size: 20px;
+      color: #aaa;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .product-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .product-thumb {
+      width: 48px;
+      height: 48px;
+      background: #e8f4e8;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .product-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .required {
+      color: #e44;
+      font-size: 11px;
+      margin-left: 4px;
+    }
+
+    .rating-select {
+      display: flex;
+      gap: 4px;
+    }
+
+    .rating-star {
+      font-size: 28px;
+      cursor: pointer;
+      color: #ddd;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .rating-star.active {
+      color: #f5a623;
+    }
+
+    .form-input {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: #999;
+    }
+
+    .form-textarea {
+      width: 100%;
+      height: 100px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 14px;
+      resize: none;
+      outline: none;
+    }
+
+    .form-textarea:focus {
+      border-color: #999;
+    }
+
+    .char-count {
+      text-align: right;
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 4px;
+    }
+
+    .image-upload {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .image-upload-btn {
+      width: 64px;
+      height: 64px;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: #fafafa;
+      color: #bbb;
+      font-size: 20px;
+    }
+
+    .image-upload-hint {
+      font-size: 8px;
+      color: #bbb;
+      margin-top: 2px;
+    }
+
+    .uploaded-image {
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      position: relative;
+    }
+
+    .remove-image {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #e44;
+      color: white;
+      font-size: 10px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-note {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 6px;
+    }
+
+    .modal-footer {
+      padding: 16px 20px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .btn-cancel {
+      background: white;
+      color: #666;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 8px 20px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .btn-submit {
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 20px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="browser-bar">
+    <div class="browser-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="browser-address">localhost:3000/products/prod_abc123/reviews</div>
+  </div>
+  <div class="page">
+    <div class="modal-overlay">
+      <div class="modal-header">
+        <span class="modal-title">レビューを投稿</span>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="product-info">
+          <div class="product-thumb">&#x1f331;</div>
+          <span class="product-name">ハンドメイド観葉植物ポット</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">評価<span class="required">必須</span></label>
+          <div class="rating-select">
+            <button class="rating-star active">&#9733;</button>
+            <button class="rating-star active">&#9733;</button>
+            <button class="rating-star active">&#9733;</button>
+            <button class="rating-star active">&#9733;</button>
+            <button class="rating-star">&#9733;</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">タイトル<span class="required">必須</span></label>
+          <input class="form-input" type="text" value="デスクに置くのにちょうどいいサイズ">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">コメント</label>
+          <textarea class="form-textarea">思っていたよりコンパクトで、デスクの上に置いても邪魔にならないです。素材の質感もよく、部屋の雰囲気が明るくなりました。</textarea>
+          <p class="char-count">74 / 1000</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">画像（最大3枚）</label>
+          <div class="image-upload">
+            <div class="uploaded-image">
+              &#x1f33f;
+              <button class="remove-image">&times;</button>
+            </div>
+            <div class="image-upload-btn">
+              +
+              <span class="image-upload-hint">追加</span>
+            </div>
+          </div>
+          <p class="image-note">JPEG / PNG、1枚あたり5MB以内</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel">キャンセル</button>
+        <button class="btn-submit">投稿する</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

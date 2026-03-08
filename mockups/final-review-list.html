@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レビュー一覧（本実装後）</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .browser-bar {
+      background: #dee1e6;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .browser-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ff5f57;
+    }
+
+    .browser-dots span:nth-child(2) {
+      background: #ffbd2e;
+    }
+
+    .browser-dots span:nth-child(3) {
+      background: #28c840;
+    }
+
+    .browser-address {
+      flex: 1;
+      background: white;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .page {
+      flex: 1;
+      background: white;
+      padding: 32px 40px;
+    }
+
+    .product-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .product-thumb {
+      width: 64px;
+      height: 64px;
+      background: #e8f4e8;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .product-detail {
+      flex: 1;
+    }
+
+    .product-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .product-rating-summary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stars {
+      color: #f5a623;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .rating-text {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .review-btn {
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .review-list {
+      list-style: none;
+      max-width: 520px;
+    }
+
+    .review-item {
+      padding: 16px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .reviewer-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .review-item:nth-child(1) .reviewer-avatar { background: #d4e8d4; }
+    .review-item:nth-child(2) .reviewer-avatar { background: #d4d4e8; }
+
+    .reviewer-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .review-date {
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .review-stars {
+      color: #f5a623;
+      font-size: 13px;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .review-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .review-comment {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .review-images {
+      display: flex;
+      gap: 8px;
+    }
+
+    .review-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 6px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="browser-bar">
+    <div class="browser-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="browser-address">localhost:3000/products/prod_abc123/reviews</div>
+  </div>
+  <div class="page">
+    <div class="product-header">
+      <div class="product-thumb">&#x1f331;</div>
+      <div class="product-detail">
+        <p class="product-name">ハンドメイド観葉植物ポット</p>
+        <div class="product-rating-summary">
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          <span class="rating-text">4.2 (12件のレビュー)</span>
+        </div>
+      </div>
+      <button class="review-btn">レビューを書く</button>
+    </div>
+
+    <p class="section-title">レビュー</p>
+    <ul class="review-list">
+      <li class="review-item">
+        <div class="review-header">
+          <div class="reviewer-avatar">A</div>
+          <span class="reviewer-name">aoyama</span>
+          <span class="review-date">2026-03-05</span>
+        </div>
+        <p class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p class="review-title">デスクに置くのにちょうどいいサイズ</p>
+        <p class="review-comment">思っていたよりコンパクトで、デスクの上に置いても邪魔にならないです。素材の質感もよく、部屋の雰囲気が明るくなりました。</p>
+        <div class="review-images">
+          <div class="review-image">&#x1f33f;</div>
+          <div class="review-image">&#x1fab4;</div>
+        </div>
+      </li>
+      <li class="review-item">
+        <div class="review-header">
+          <div class="reviewer-avatar">T</div>
+          <span class="reviewer-name">tanaka</span>
+          <span class="review-date">2026-03-06</span>
+        </div>
+        <p class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</p>
+        <p class="review-title">デザインが気に入りました</p>
+        <p class="review-comment">シンプルだけどおしゃれなデザインで気に入っています。水はけがもう少し良いとさらに嬉しいです。</p>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

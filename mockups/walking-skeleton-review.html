@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レビュー投稿（ウォーキングスケルトン）</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ブラウザのアドレスバー風 */
+    .browser-bar {
+      background: #dee1e6;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .browser-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ff5f57;
+    }
+
+    .browser-dots span:nth-child(2) {
+      background: #ffbd2e;
+    }
+
+    .browser-dots span:nth-child(3) {
+      background: #28c840;
+    }
+
+    .browser-address {
+      flex: 1;
+      background: white;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* ページコンテンツ */
+    .page {
+      flex: 1;
+      background: white;
+      padding: 40px;
+    }
+
+    .product-id {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .form-group textarea {
+      width: 360px;
+      height: 80px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      font-size: 14px;
+      resize: none;
+    }
+
+    .submit-btn {
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 20px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="browser-bar">
+    <div class="browser-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="browser-address">localhost:3000/products/prod_abc123/reviews/new</div>
+  </div>
+  <div class="page">
+    <p class="product-id">商品ID: prod_abc123</p>
+    <div class="form-group">
+      <label>コメント</label>
+      <textarea placeholder="レビューを入力"></textarea>
+    </div>
+    <button class="submit-btn">投稿する</button>
+  </div>
+</body>
+</html>
