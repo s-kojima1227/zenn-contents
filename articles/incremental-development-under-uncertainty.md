@@ -267,13 +267,13 @@ func (r *Review) Validate() error {
 
 Phase 1〜3で構造・骨組み・縦の流れがすでに動いているので、この段階での作業はフィールドの追加やバリデーション、フロントエンドのデザイン適用が中心でした。アーキテクチャの変更にはなりませんでした。
 
-ウォーキングスケルトンと本実装後を並べると、段階的な肉付けの様子がわかります。
+本実装後の画面はこんな感じです。
 
-| ウォーキングスケルトン | 本実装後 |
-|---|---|
-| ![](/images/incremental-development-under-uncertainty/walking-skeleton-product-list.jpg) | ![](/images/incremental-development-under-uncertainty/final-product-list.jpg) |
-| ![](/images/incremental-development-under-uncertainty/walking-skeleton-review-list.jpg) | ![](/images/incremental-development-under-uncertainty/final-review-list.jpg) |
-| ![](/images/incremental-development-under-uncertainty/walking-skeleton-review.jpg) | ![](/images/incremental-development-under-uncertainty/final-review.jpg) |
+![商品一覧](/images/incremental-development-under-uncertainty/final-product-list.jpg)
+
+![レビュー一覧](/images/incremental-development-under-uncertainty/final-review-list.jpg)
+
+![レビュー投稿](/images/incremental-development-under-uncertainty/final-review.jpg)
 
 私たちのチームではデザインをFigmaで管理しているので、フロントエンドの本実装はFigma MCPを使ったAIコーディングで進めました。ウォーキングスケルトンの段階でAPI呼び出しのフックやページの骨組みがすでにあるので、AIはその既存コードとFigmaのデザインを比較しながらデザインを適用していくだけです。さらに受け入れ条件も詳細に書いてあるので、AIの実装精度がかなり高かったです。
 
