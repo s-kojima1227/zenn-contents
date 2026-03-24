@@ -3,7 +3,7 @@ title: "「なんとなく」でリファクタリングを始めないで！"
 emoji: "🧶"
 type: "idea"
 topics: ["リファクタリング", "設計", "プロジェクト管理", "チーム開発", "ポエム"]
-published: false
+published: true
 ---
 
 ![](/images/define-goal-before-refactoring/cover.jpg)
